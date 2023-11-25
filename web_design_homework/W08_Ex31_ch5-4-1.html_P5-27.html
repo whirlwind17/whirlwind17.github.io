@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <title>ch5-4-1連結(link)虛擬類別與使用者動作(user action)虛擬類別</title>
+    <meta charset="utf-8">
+    <style>
+        a:link {
+            color: green;
+        }
+
+        a:hover {
+            color: red;
+        }
+
+        a:active {
+            background-color: yellow;
+        }
+
+        a:visited {
+            color: blue;
+        }
+
+        input:focus {
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://www.w3schools.com" target="_blank">w3schools</a><br>
+    <a href="https://www.google.com.tw" target="_blank">Google</a><br>
+    <form action="" method="post">
+        使用者名稱<input type=text name="uname"><br>
+        密碼<input type=password name="passwd"><br>
+    </form>
+</body>
+
+</html>

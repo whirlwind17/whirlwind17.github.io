@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <title>ch4-3-4使用屬性background-attachment設定背景</title>
+    <meta charset="utf-8">
+    <style>
+        div {
+            height: 1000px;
+        }
+
+        #bg7 {
+            background-image: url('img/bg3.png'), url('img/bg3.png');
+            background-size: 100px 150px, 100px 150px;
+            background-repeat: no-repeat, no-repeat;
+            background-position: center, right bottom;
+            background-attachment: fixed, scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='bg7'></div>
+</body>
+
+</html>

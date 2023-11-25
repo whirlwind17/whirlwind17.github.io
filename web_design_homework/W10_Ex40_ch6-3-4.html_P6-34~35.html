@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <title>ch6-3-4三欄式版面(fluid-fluid-fluid)</title>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 0px;
+            font-size: 40px;
+        }
+        #header {
+            height: 100px;
+            background-color: red;
+        }
+        #wrapper {
+            float: left;
+            width: 100%;
+        }
+        #main {
+            margin: 0 15% 0 20%;
+            background-color: green;
+        }
+        #leftside {
+            float: left;
+            width: 20%;
+            margin-left: -100%;
+            background-color: blue;
+        }
+        #rightside {
+            float: left;
+            width: 15%;
+            margin-left: -15%;
+            background-color: blue;
+        }
+        #footer {
+            clear: both;
+            height: 100px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">這裡是header</div>
+    <div id="wrapper">
+        <div id="main">這裡是main</div>
+    </div>
+    <div id="leftside">寬度20%，這裡是left</div>
+    <div id="rightside">寬度15%，這裡是right</div>
+    <div id="footer">這裡是footer</div>
+</body>
+</html>

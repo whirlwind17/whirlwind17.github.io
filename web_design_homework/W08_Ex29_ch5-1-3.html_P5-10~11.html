@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <title>ch5-1-3子孫選擇器與子選擇器</title>
+    <meta charset="utf-8">
+    <style>
+        li {
+            list-style-type: decimal;
+        }
+
+        #myUL1 li {
+            /*子孫選擇器*/
+            list-style-type: circle;
+        }
+
+        #myUL2>li {
+            /*子選擇器*/
+            list-style-type: lower-alpha;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>A</li>
+        <ul id='myUL1'>
+            <li>A-1</li>
+            <li>A-2</li>
+            <ul>
+                <li>A-2-1</li>
+                <li>A-2-2</li>
+            </ul>
+            <li>A-3</li>
+        </ul>
+        <li>B</li>
+    </ul>
+    <ul>
+        <li>A</li>
+        <ul id='myUL2'>
+            <li>A-1</li>
+            <li>A-2</li>
+            <ul>
+                <li>A-2-1</li>
+                <li>A-2-2</li>
+            </ul>
+            <li>A-3</li>
+        </ul>
+        <li>B</li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <title>ch4-3-2在指定位置放入背景圖片</title>
+    <meta charset="utf-8">
+    <style>
+        div {
+            height: 500px;
+            width: 400px;
+            border: 1px red solid;
+            margin-bottom: 40px;
+        }
+
+        #bg3 {
+            background-image: url('img/bg3.png');
+            background-size: 100px 150px;
+            background-repeat: no-repeat;
+            background-position: right bottom;
+        }
+
+        #bg4 {
+            background-image: url('img/bg3.png');
+            background-size: 100px 150px;
+            background-repeat: no-repeat;
+            background-position: 30% 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='bg3'></div>
+    <div id='bg4'></div>
+</body>
+
+</html>

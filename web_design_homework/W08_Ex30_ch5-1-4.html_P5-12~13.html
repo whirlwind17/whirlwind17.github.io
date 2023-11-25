@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <title>ch5-1-4同層相鄰選擇器與同層全體選擇器</title>
+    <meta charset="utf-8">
+    <style>
+        #ex1+ul {
+            /*同層相鄰選擇器*/
+            background-color: green;
+        }
+
+        #ex2~ul {
+            /*同層全體選擇器*/
+            background-color: chocolate;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2 id="ex1">清單A到B</h2>
+        <ul>
+            <li>A</li>
+            <li>B</li>
+        </ul>
+        <h2>清單C到D</h2>
+        <ul>
+            <li>C</li>
+            <li>D</li>
+        </ul>
+    </div>
+    <div>
+        <h2 id="ex2">清單A到B</h2>
+        <ul>
+            <li>A</li>
+            <li>B</li>
+        </ul>
+        <h2>清單C到D</h2>
+        <ul>
+            <li>C</li>
+            <li>D</li>
+        </ul>
+    </div>
+</body>
+
+</html>
