@@ -80,17 +80,29 @@ body {
     height: 280px;
   }
   
+  
   .video-item h2 {
+    /* 其他樣式... */
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     left: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     color: #fff;
     padding: 8px;
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    visibility: visible; /* 初始可見性設為可見 */
+    opacity: 1; /* 初始透明度設為完全不透明 */
+    transition: opacity 0.3s; /* 添加過渡效果 */
   }
   
+  .video-item h2.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
   /* 新增的 CSS */
   @media screen and (max-width: 768px) {
     .video-item {
