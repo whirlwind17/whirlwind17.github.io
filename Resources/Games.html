@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Off-Canvas Sidebar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="container">
+  <div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 選項</span>
+    <h1>隨機遊戲教學影片推薦</h1>
+
+    <!-- 新增的 YouTube 影片部分 -->
+    <div id="video-section">
+      <!-- 第一列影片 -->
+      <div class="video-item">
+        <h2>Every Opener is Here! - TETRIS</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/NNl6I6JZwC8?si=ITdTHvA81FfUjTsQ" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>Lurch strafe 教學</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/GA3kytpFvE4?si=tVfj8-2h8fjxiBTE" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>SF6 JURI BASIC COMBOS</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/7J6KWH268Z8?si=4VSvXGGa8n2VX_np" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <!-- 第二列影片 -->
+      <div class="video-item">
+        <h2>Speed Damage Guide - Movement</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/CSrR-1Y0XRY?si=fLIWNbD7r5ExjhVY" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>巨人の獵手 一閃教學</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/tTCQJhIqAig?si=LSE6oTiCZfSxHohO" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>Iron Farm House 2.0</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/LX5OXmtHKmI?si=bfijV9bt9MRHjWgP" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <!-- 結束新增的 YouTube 影片部分 -->
+
+  </div>
+
+  <div id="sidebar">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+    <a href="../index.html">主頁</a>
+    <a href="Youtube.html">隨機影片推薦</a>
+    <a href="Music.html">隨機音樂推薦</a>
+    <a href="Osu.html">常在Osu打的音樂</a>
+  </div>
+</div>
+
+<script>
+  function openNav() {
+    document.getElementById("sidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("sidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
+</script>
+
+</body>
+</html>

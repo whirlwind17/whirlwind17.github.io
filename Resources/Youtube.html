@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Off-Canvas Sidebar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="container">
+  <div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 選項</span>
+    <h1>隨機影片推薦</h1>
+
+    <!-- 新增的 YouTube 影片部分 -->
+    <div id="video-section">
+      <!-- 第一列影片 -->
+      <div class="video-item">
+        <h2>某人直接在辯論會上領域展開</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/h8DgZN_kQF8?si=BAw0Xi0mR_2mJq_g" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>台灣黑暗靈魂</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/CATKB_xn6DU?si=lPYrgdc7wmnnJAPF" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>和路人一起搖頭</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/pT8JH2y0xto?si=ye9SVY89fjDXgGCY" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <!-- 第二列影片 -->
+      <div class="video-item">
+        <h2>主審拉弓打O槍</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/MZJY-2Md7SE?si=4yg1299SeO--CNeM" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>最終鬼畜魚チンアナゴー・Ｓ</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/Cg2kLDbltIw?si=3siKfsscEqhB5QtU" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-item">
+        <h2>屁孩遊戲王之決鬥</h2>
+        <iframe class="video" src="https://www.youtube.com/embed/XZwDsgVQ12I?si=rWdyOw5Sar7fAHvA" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <!-- 結束新增的 YouTube 影片部分 -->
+
+  </div>
+
+  <div id="sidebar">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+    <a href="../index.html">主頁</a>
+    <a href="Music.html">隨機音樂推薦</a>
+    <a href="Osu.html">常在Osu打的音樂</a>
+    <a href="Games.html">隨機遊戲教學影片推薦</a>
+  </div>
+</div>
+
+<script>
+  function openNav() {
+    document.getElementById("sidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("sidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
+</script>
+
+</body>
+</html>
