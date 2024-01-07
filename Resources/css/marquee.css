@@ -6,6 +6,9 @@
     animation-duration: 10s;
   }
   
+  #footer {
+    z-index: 2; /* 设置下方黑色區域的层叠顺序为2，比动画推荐和列表框更高 */
+  }
   @keyframes marquee {
     from {
       transform: translateX(100vw);

@@ -17,55 +17,67 @@
     }
 
     #main {
-  flex: 1;
-  transition: margin-left 0.5s;
-  padding: 16px;
-  overflow-y: auto; /* 啟用垂直滾動條 */
-  max-height: 100vh; /* 設置最大高度 */
+      flex: 1;
+      transition: margin-left 0.5s;
+      padding: 16px;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    #main .scrollable-section {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  width: 20%;
+  max-height: calc(100vh - 100px); /* 100px 是上下邊距的總和 */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* 靠右對齊 */
+}
+
+#main .scrollable-header {
+  font-size: 68px;
+  color: black;
+  text-align: center;
+  background-color: white;
+  width: 100%; /* 讓標題佔滿寬度 */
 }
 
 #main .scrollable-list {
-  width: 500px;
-  position: absolute;
-  top: 110px;
-  right: 200px;
+  width: 95%; /* 减小宽度为95% */
   border: 5px solid black;
-  background-color: #ddd; /* 新增背景顏色屬性 */
+  background-color: #ddd;
+  margin-top: 16px;
+  margin-left: auto; /* 使左侧边框贴近视图框的右侧 */
+  margin-right: auto;
 }
 
-#main .scrollable-list a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #000;
-  display: block;
-  transition: 0.3s;
-  text-align: center;
-}
+    #main .scrollable-list a {
+      padding: 8px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #000;
+      display: block;
+      transition: 0.3s;
+      text-align: center;
+    }
 
-#main .scrollable-list a:hover {
-  background-color: #ccc; /* 新增滑鼠懸停時的背景顏色屬性 */
-}
+    #main .scrollable-list a:hover {
+      background-color: #ccc;
+    }
 
-    /* 新增樣式，使文字置於列表上方 */
-#main .scrollable-header {
-  position: absolute;
-  top: 20px; /* 調整上方距離，根據需要調整 */
-  right: 325px;
-  font-size: 68px; /* 調整字體大小，根據需要調整 */
-  color: black;
-}
     #slideshow {
       width: 100%;
-      max-width: 500px; /* 最大寬度，根據需要調整 */
-      height: auto; /* 自動調整高度 */
+      max-width: 500px;
+      height: auto;
       overflow: hidden;
     }
 
     #slideshow img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* 保持圖片比例並填滿圖片框 */
+      object-fit: contain;
       transition: opacity 1s ease-in-out;
     }
 
@@ -102,7 +114,7 @@
     }
 
     #main h3 {
-      margin: 5px 0; /* 調整上下間距 */
+      margin: 5px 0;
     }
 
     @media screen and (max-height: 450px) {
@@ -110,13 +122,17 @@
       #sidebar a {font-size: 18px;}
     }
 
-    /* 底部黑色區域 */
     #footer {
       background-color: black;
       height: 100px;
       color: white;
       display: flex;
       align-items: center;
+      overflow: hidden;
+    }
+
+    #marquee {
+      max-height: 100%; /* 設置最大高度 */
       overflow: hidden;
     }
 
@@ -144,22 +160,20 @@
       <h3>班級：海資二甲</h3>
       <h3><a href="web_design_homework/Home.html">Homework</a></h3>
       <h2>喜歡的遊戲</h2>
-      <div id="slideshow">
-        <img id="slide1" src="Resources/photos/1.png" alt="Slide 1">
-      </div>
-      <div class="scrollable-header">動畫推薦</div>
-      <div class="scrollable-list">
-        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=7870">斬！赤紅之瞳</a>
-        <a href="https://www.youtube.com/embed/C9MuI4gfyiA?si=Bl5W7sQUntcgq3Zm">寶石之國</a>
-        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=8325">來自深淵</a>
-        <a href="https://www.youtube.com/embed/zTmlrZw6Ctc?si=P0OaCEm1KYUSw5xL">HAMATORA-超能偵探社</a>
-        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=3165">Angel Beats！</a>
-        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=22226">Vivy -Fluorite Eye's Song-</a>
-        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=22226">食夢者瑪莉</a>
-        <a href="https://www.youtube.com/embed/AwXRPWmgLbU?si=v4tVZ4BbTwFiY9So">徹夜之歌</a>
-        <a href="https://www.youtube.com/embed/Rm8UjBAS3cs?si=GyUzct3mJlYXyoHL">寄生獸</a>
-        <a href="">太多了 懶得弄完</a>
-        <!-- 根據需要添加更多項目 -->
+      <div class="scrollable-section">
+        <div class="scrollable-header">動畫推薦</div>
+        <div class="scrollable-list">
+          <a href="https://ani.gamer.com.tw/animeVideo.php?sn=7870">斬！赤紅之瞳</a>
+          <a href="https://www.youtube.com/embed/C9MuI4gfyiA?si=Bl5W7sQUntcgq3Zm">寶石之國</a>
+          <a href="https://ani.gamer.com.tw/animeVideo.php?sn=8325">來自深淵</a>
+          <a href="https://www.youtube.com/embed/zTmlrZw6Ctc?si=P0OaCEm1KYUSw5xL">HAMATORA-超能偵探社</a>
+          <a href="https://ani.gamer.com.tw/animeVideo.php?sn=3165">Angel Beats！</a>
+          <a href="https://ani.gamer.com.tw/animeVideo.php?sn=22226">Vivy -Fluorite Eye's Song-</a>
+          <a href="https://ani.gamer.com.tw/animeVideo.php?sn=22226">食夢者瑪莉</a>
+          <a href="https://www.youtube.com/embed/AwXRPWmgLbU?si=v4tVZ4BbTwFiY9So">徹夜之歌</a>
+          <a href="https://www.youtube.com/embed/Rm8UjBAS3cs?si=GyUzct3mJlYXyoHL">寄生獸</a>
+          <a href="">太多了 懶得弄完</a>
+        </div>
       </div>
     </div>
 
