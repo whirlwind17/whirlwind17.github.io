@@ -1,0 +1,16 @@
+/* marquee.css */
+
+#marquee {
+    animation: marquee linear infinite;
+    white-space: nowrap;
+    animation-duration: 10s;
+  }
+  
+  @keyframes marquee {
+    from {
+      transform: translateX(100vw);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Off-Canvas Sidebar</title>
+  <title>個人網站主頁</title>
   <style>
     body {
       margin: 0;
@@ -12,12 +12,61 @@
 
     .container {
       display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
 
     #main {
-      flex: 1;
-      transition: margin-left 0.5s;
-      padding: 16px;
+  flex: 1;
+  transition: margin-left 0.5s;
+  padding: 16px;
+  overflow-y: auto; /* 啟用垂直滾動條 */
+  max-height: 100vh; /* 設置最大高度 */
+}
+
+#main .scrollable-list {
+  width: 500px;
+  position: absolute;
+  top: 110px;
+  right: 200px;
+  border: 5px solid black;
+  background-color: #ddd; /* 新增背景顏色屬性 */
+}
+
+#main .scrollable-list a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #000;
+  display: block;
+  transition: 0.3s;
+  text-align: center;
+}
+
+#main .scrollable-list a:hover {
+  background-color: #ccc; /* 新增滑鼠懸停時的背景顏色屬性 */
+}
+
+    /* 新增樣式，使文字置於列表上方 */
+#main .scrollable-header {
+  position: absolute;
+  top: 20px; /* 調整上方距離，根據需要調整 */
+  right: 325px;
+  font-size: 68px; /* 調整字體大小，根據需要調整 */
+  color: black;
+}
+    #slideshow {
+      width: 100%;
+      max-width: 500px; /* 最大寬度，根據需要調整 */
+      height: auto; /* 自動調整高度 */
+      overflow: hidden;
+    }
+
+    #slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* 保持圖片比例並填滿圖片框 */
+      transition: opacity 1s ease-in-out;
     }
 
     #sidebar {
@@ -53,7 +102,7 @@
     }
 
     #main h3 {
-        margin: 5px 0; /* 調整上下間距 */
+      margin: 5px 0; /* 調整上下間距 */
     }
 
     @media screen and (max-height: 450px) {
@@ -61,41 +110,84 @@
       #sidebar a {font-size: 18px;}
     }
 
+    /* 底部黑色區域 */
+    #footer {
+      background-color: black;
+      height: 100px;
+      color: white;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
 
   </style>
+  <!-- 引入外部 CSS 檔案 -->
+  <link rel="stylesheet" type="text/css" href="Resources/css/marquee.css">
+  <!-- 引入你的 JavaScript 檔案 -->
+  <script src="Resources/js/script.js"></script>
+  <script src="Resources/js/slideshow.js"></script>
+  <script>
+    // 開啟側邊欄時啟動輪替圖片
+    document.addEventListener("DOMContentLoaded", function () {
+      startSlideshow();
+    });
+  </script>
 </head>
 <body>
+  
+  <div class="container">
+    <div id="main">
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 選項</span>
+      <h1>個人資訊</h1>
+      <h3>名字：黃冠倫</h3>
+      <h3>學號：C111181117</h3>
+      <h3>班級：海資二甲</h3>
+      <h3><a href="web_design_homework/Home.html">Homework</a></h3>
+      <h2>喜歡的遊戲</h2>
+      <div id="slideshow">
+        <img id="slide1" src="Resources/photos/1.png" alt="Slide 1">
+      </div>
+      <div class="scrollable-header">動畫推薦</div>
+      <div class="scrollable-list">
+        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=7870">斬！赤紅之瞳</a>
+        <a href="https://www.youtube.com/embed/C9MuI4gfyiA?si=Bl5W7sQUntcgq3Zm">寶石之國</a>
+        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=8325">來自深淵</a>
+        <a href="https://www.youtube.com/embed/zTmlrZw6Ctc?si=P0OaCEm1KYUSw5xL">HAMATORA-超能偵探社</a>
+        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=3165">Angel Beats！</a>
+        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=22226">Vivy -Fluorite Eye's Song-</a>
+        <a href="https://ani.gamer.com.tw/animeVideo.php?sn=22226">食夢者瑪莉</a>
+        <a href="https://www.youtube.com/embed/AwXRPWmgLbU?si=v4tVZ4BbTwFiY9So">徹夜之歌</a>
+        <a href="https://www.youtube.com/embed/Rm8UjBAS3cs?si=GyUzct3mJlYXyoHL">寄生獸</a>
+        <a href="">太多了 懶得弄完</a>
+        <!-- 根據需要添加更多項目 -->
+      </div>
+    </div>
 
-<div class="container">
-  <div id="main">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 選項</span>
-    <h1>個人資訊</h2>
-    <h3>名字：黃冠倫</h3>
-    <h3>學號：C111181117</h3>
-    <h3>班級：海資二甲</h3>
-    <h3><a link href="web_design_homework/Home.html">Homework</a></h3>
+    <div id="sidebar">
+      <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+      <a href="Resources/Youtube.html">隨機影片推薦</a>
+      <a href="Resources/Music.html">隨機音樂推薦</a>
+      <a href="Resources/Osu.html">常在Osu打的音樂</a>
+      <a href="Resources/Games.html">隨機遊戲教學影片推薦</a>
+    </div>
+
+    <!-- 底部黑色區域 -->
+    <div id="footer">
+      <div id="marquee">我的IG是sky_wings_ouo只不過我沒在用 不用加我好友</div>
+    </div>
   </div>
 
-  <div id="sidebar">
-    <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
-    <a href="Resources/Youtube.html">隨機影片推薦</a>
-    <a href="Resources/Music.html">隨機音樂推薦</a>
-    <a href="Resources/Osu.html">常在Osu打的音樂</a>
-    <a href="Resources/Games.html">隨機遊戲教學影片推薦</a>
-  </div>
-</div>
+  <script>
+    function openNav() {
+      document.getElementById("sidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
 
-<script>
-  function openNav() {
-    document.getElementById("sidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-  }
-
-  function closeNav() {
-    document.getElementById("sidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-  }
-</script>
+    function closeNav() {
+      document.getElementById("sidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
 
 </body>
 </html>
