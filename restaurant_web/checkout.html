@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結帳頁面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>結帳成功</h1>
+        <h2>購買清單</h2>
+        <ul id="cart-list">
+            <!-- 購物車內容動態生成 -->
+        </ul>
+        <p id="discount-note"></p>
+        <p>總計: <span id="total"></span>元</p>
+        <button onclick="window.location.href='index.html'">回到首頁</button>
+    </div>
+
+    <script>
+        // 獲取URL參數
+        const urlParams = new URLSearchParams(window.location.search);
+        const total = Math.round(parseFloat(urlParams.get('total')));
+        const cartData = urlParams.get('cart');
+        const cart = JSON.parse(decodeURIComponent(cartData));
+
+        document.getElementById('total').textContent = total;
+
+        const cartList = document.getElementById('cart-list');
+        cart.forEach(cartItem => {
+            const li = document.createElement('li');
+            li.textContent = `${cartItem.item} - ${Math.round(cartItem.totalPrice)}元`;
+            cartList.appendChild(li);
+        });
+
+        // 檢查總額是否超過500元，並動態生成備註
+        if (total > 500) {
+            document.getElementById('discount-note').textContent = '因為總額達到500元，您獲得了九五折優惠。';
+        }
+    </script>
+</body>
+</html>
