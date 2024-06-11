@@ -67,11 +67,18 @@
         document.getElementById('total').textContent = total;
 
         const cartList = document.getElementById('cart-list');
+        let totalCalories = 0;
         cart.forEach(cartItem => {
             const li = document.createElement('li');
-            li.textContent = `${cartItem.item} - ${Math.round(cartItem.totalPrice)}元`;
+            li.textContent = `${cartItem.item} (${cartItem.calories.toFixed(2)} kcal) - ${Math.round(cartItem.totalPrice)}元`;
             cartList.appendChild(li);
+            totalCalories += cartItem.totalCalories;
         });
+
+        // 顯示總熱量
+        const totalCaloriesElement = document.createElement('p');
+        totalCaloriesElement.textContent = `這些食物的總熱量是 ${totalCalories.toFixed(2)} 大卡。`;
+        cartList.appendChild(totalCaloriesElement);
 
         // 檢查總額是否超過500元，並動態生成備註
         if (total > 500) {

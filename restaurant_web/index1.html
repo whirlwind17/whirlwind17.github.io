@@ -46,7 +46,6 @@
             color: white;
             border: none;
             cursor: pointer;
-            margin-left: 5px;
         }
         button:hover {
             background-color: #218838;
@@ -110,49 +109,21 @@
                 <img src="images/Hamburger.jpg" alt="漢堡">
                 <span>漢堡 - 100元</span>
             </div>
-            <button onclick="addToCart('漢堡', 100, 'meat', 295)">加入購物車</button>
+            <button onclick="addToCart('漢堡', 100, 'meat')">加入購物車</button>
         </li>
         <li>
             <div class="item-info">
                 <img src="images/Chicken_Nuggets.png" alt="雞塊">
                 <span>雞塊5塊 - 40元</span>
             </div>
-            <button onclick="addToCart('雞塊', 40, 'meat', 220)">加入購物車</button>
+            <button onclick="addToCart('雞塊', 40, 'meat')">加入購物車</button>
         </li>
         <li>
             <div class="item-info">
                 <img src="images/Fried_Chicken_Leg.jpg" alt="炸雞腿">
                 <span>炸雞腿 - 40元</span>
             </div>
-            <button onclick="addToCart('炸雞腿', 40, 'meat', 236)">加入購物車</button>
-        </li>
-        <li>
-            <div class="item-info">
-                <img src="images/Salad.png" alt="沙拉">
-                <span>沙拉 - 25元</span>
-            </div>
-            <button onclick="addToCart('沙拉', 25, 'veg', 28)">加入購物車</button>
-        </li>
-        <li>
-            <div class="item-info">
-                <img src="images/Hand_Roll.png" alt="手卷">
-                <span>手卷 - 30元</span>
-            </div>
-            <button onclick="addToCart('手卷', 30, 'balance', 150)">加入購物車</button>
-        </li>
-        <li>
-            <div class="item-info">
-                <img src="images/Ramen.png" alt="拉麵">
-                <span>拉麵 - 80元</span>
-            </div>
-            <button onclick="addToCart('拉麵', 80, 'balance', 436.2)">加入購物車</button>
-        </li>
-        <li>
-            <div class="item-info">
-                <img src="images/Black_Tea.png" alt="紅茶">
-                <span>紅茶 - 20元</span>
-            </div>
-            <button onclick="addToCart('紅茶', 20, 'balance', 20)">加入購物車</button>
+            <button onclick="addToCart('炸雞腿', 40, 'meat')">加入購物車</button>
         </li>
         <!-- 可以添加更多菜品 -->
     </ul>
@@ -180,7 +151,6 @@
                     <!-- 彈出視窗中的購物車內容動態生成 -->
                 </ul>
                 <p id="nutrition-advice"></p>
-                <p id="total-calories"></p> <!-- 總熱量 -->
             </div>
             <div class="modal-footer">
                 <button onclick="closeModal()">取消</button>
@@ -189,6 +159,7 @@
         </div>
     </div>
 
+    
     <script src="Js/Cart.js"></script>
     <script src="Js/window.js"></script>
 </body>
