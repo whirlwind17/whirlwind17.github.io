@@ -97,6 +97,15 @@
         .modal-footer {
             padding-top: 20px;
         }
+            /* 分類標題 */
+        .category-title {
+            text-align: center;
+            background-color: #ffffff;
+            border: 2px solid #dddddd;
+            padding: 10px;
+            margin: 20px auto;
+            max-width: 300px;
+        }
     </style>
 </head>
 <body>
@@ -104,20 +113,22 @@
     
     <!-- 菜單 -->
     <h2>菜單</h2>
-    <ul id="menu">
+
+    <h2 class="category-title">炸物速食類</h2>
+    <ul id="fried-food-menu">
         <li>
             <div class="item-info">
                 <img src="images/Hamburger.jpg" alt="漢堡">
                 <span>漢堡 - 100元</span>
             </div>
-            <button onclick="addToCart('漢堡', 100, 'meat', 295)">加入購物車</button>
+            <button onclick="addToCart('漢堡', 100, 'meat', 250)">加入購物車</button>
         </li>
         <li>
             <div class="item-info">
-                <img src="images/Chicken_Nuggets.png" alt="雞塊">
+                <img src="images/Chicken_Nuggets.png" alt="雞塊5塊">
                 <span>雞塊5塊 - 40元</span>
             </div>
-            <button onclick="addToCart('雞塊', 40, 'meat', 220)">加入購物車</button>
+            <button onclick="addToCart('雞塊5塊', 40, 'meat', 350)">加入購物車</button>
         </li>
         <li>
             <div class="item-info">
@@ -126,6 +137,11 @@
             </div>
             <button onclick="addToCart('炸雞腿', 40, 'meat', 236)">加入購物車</button>
         </li>
+        <!-- 可以添加更多炸物速食類的菜品 -->
+    </ul>
+    
+    <h2 class="category-title">素食類</h2>
+    <ul id="vegetarian-menu">
         <li>
             <div class="item-info">
                 <img src="images/Salad.png" alt="沙拉">
@@ -135,26 +151,43 @@
         </li>
         <li>
             <div class="item-info">
+                <img src="images/Vegetable_Sandwich.png" alt="蔬菜三明治">
+                <span>蔬菜三明治 - 35元</span>
+            </div>
+            <button onclick="addToCart('蔬菜三明治', 35, 'veg', 165)">加入購物車</button>
+        </li>
+        <!-- 可以添加更多素食類的菜品 -->
+    </ul>
+    
+    <h2 class="category-title">麵食類</h2>
+    <ul id="noodles-menu">
+        <li>
+            <div class="item-info">
                 <img src="images/Hand_Roll.png" alt="手卷">
                 <span>手卷 - 30元</span>
             </div>
-            <button onclick="addToCart('手卷', 30, 'balance', 150)">加入購物車</button>
+            <button onclick="addToCart('手卷', 30, 'noodles', 150)">加入購物車</button>
         </li>
         <li>
             <div class="item-info">
                 <img src="images/Ramen.png" alt="拉麵">
                 <span>拉麵 - 80元</span>
             </div>
-            <button onclick="addToCart('拉麵', 80, 'balance', 436.2)">加入購物車</button>
+            <button onclick="addToCart('拉麵', 80, 'noodles', 500)">加入購物車</button>
         </li>
+        <!-- 可以添加更多麵食類的菜品 -->
+    </ul>
+    
+    <h2 class="category-title">飲料類</h2>
+    <ul id="drinks-menu">
         <li>
             <div class="item-info">
                 <img src="images/Black_Tea.png" alt="紅茶">
                 <span>紅茶 - 20元</span>
             </div>
-            <button onclick="addToCart('紅茶', 20, 'balance', 20)">加入購物車</button>
+            <button onclick="addToCart('紅茶', 20, 'drink', 20)">加入購物車</button>
         </li>
-        <!-- 可以添加更多菜品 -->
+        <!-- 可以添加更多飲料類的菜品 -->
     </ul>
     
     <!-- 購物車 -->
