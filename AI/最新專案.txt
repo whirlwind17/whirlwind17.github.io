@@ -1,0 +1,824 @@
+/css/style.css:
+body {
+    background-color: #121212; /* 更深的黑色 */
+    color: #e0e0e0; /* 更柔和的白色 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    margin-top: 20px; /* 讓標題不貼住最上方，留出空間 */
+    position: relative;
+}
+
+.main-title img {
+    max-width: 500px; /* 設定最大寬度 */
+    height: auto;
+    margin-top: 40px; /* 讓標題不貼住最上方，留出空間 */
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #e0e0e0;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #333; /* 深色背景 */
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+/* 共用卡片樣式 */
+.game, .complaint, .anime, .order, .ocean-game {
+    width: calc(16.66% - 10px); /* 每行六個卡片，留出邊距 */
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #1e1e1e; /* 深色背景 */
+    border: 1px solid #333; /* 深色邊框 */
+    border-radius: 10px; /* 圓角 */
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 陰影效果 */
+}
+
+.game img, .anime img, .ocean-game img {
+    width: 100%; /* 自動伸縮大小 */
+    height: auto;
+    max-height: 300px; /* 固定最大高度 */
+    object-fit: cover; /* 保持圖片比例 */
+}
+
+.game-title, .anime-title, .ocean-game-title {
+    margin-top: 5px;
+}
+
+/* 共用段落樣式 */
+.complaint p, .anime p, .order p, .ocean-game p {
+    margin: 5px 0;
+}
+
+/* 表單容器樣式 */
+.form-container {
+    background-color: #1e1e1e; /* 深色背景 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 陰影效果 */
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%; /* 確保寬度不超過父容器 */
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-container input,
+.form-container textarea {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+.form-container textarea {
+    resize: none; /* 禁止調整大小 */
+}
+
+.form-container button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+.form-container button:focus,
+.sidenav a:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+/* 遊戲容器樣式 */
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.user-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+/* 其他共用樣式 */
+main {
+    padding: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* 固定評論、抱怨、訂單等內容區域的大小 */
+.review, .complaint, .order {
+    background-color: #1e1e1e; /* 深色背景 */
+    border: 1px solid #333; /* 深色邊框 */
+    border-radius: 10px; /* 圓角 */
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 陰影效果 */
+    width: 100%; /* 固定寬度 */
+    max-width: 600px; /* 最大寬度 */
+    margin: 0 auto; /* 置中 */
+}
+
+/* 固定 iframe 的大小 */
+iframe {
+    width: 560px; /* 固定寬度 */
+    height: 315px; /* 固定高度 */
+    border: none; /* 移除邊框 */
+}
+-------------------------------------------------------------
+anime.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "動漫推薦網站";
+ob_start(); // 開始緩衝輸出
+?>
+
+<h2>動漫列表</h2>
+<div class="game-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM anime");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='anime'>";
+            if (!empty($row['cover_image'])) {
+                echo "<img src='" . htmlspecialchars($row['cover_image']) . "' alt='" . htmlspecialchars($row['title']) . "'>";
+            }
+            echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+            echo "<p>評分: " . htmlspecialchars($row['rating']) . "</p>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有動漫。</p>";
+    }
+    ?>
+</div>
+
+<?php
+$page_content = ob_get_clean(); // 獲取緩衝內容並清空緩衝
+include 'layout.php'; // 引入 Layout
+?>
+-------------------------------------------------------------
+complaints.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "線上抱怨網站";
+ob_start();
+?>
+
+<h2>抱怨列表</h2>
+<div class="complaint-container">
+    <?php
+    // 查詢抱怨並關聯用戶名稱
+    $stmt = $pdo->query("
+        SELECT complaints.*, users.username 
+        FROM complaints 
+        JOIN users ON complaints.user_id = users.id
+    ");
+    $complaints = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($complaints) > 0) {
+        foreach ($complaints as $complaint):
+    ?>
+        <div class="complaint">
+            <p><strong>用戶:</strong> <?php echo htmlspecialchars($complaint['username']); ?></p>
+            <p><strong>抱怨內容:</strong> <?php echo htmlspecialchars($complaint['complaint_text']); ?></p>
+            <p><strong>類型:</strong> <?php echo htmlspecialchars($complaint['complaint_type']); ?></p>
+            <p><strong>評分:</strong> <?php echo htmlspecialchars($complaint['rating']); ?></p>
+        </div>
+    <?php
+        endforeach;
+    } else {
+        echo "<p>目前沒有抱怨。</p>";
+    }
+    ?>
+</div>
+
+<?php if (isset($_SESSION['user_id'])): ?>
+    <h3>新增抱怨</h3>
+    <form action="submit_complaint.php" method="POST" class="form-container">
+        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+        <label for="complaint_text">抱怨內容</label>
+        <textarea id="complaint_text" name="complaint_text" required></textarea>
+        <label for="complaint_type">抱怨類型</label>
+        <input type="text" id="complaint_type" name="complaint_type" required>
+        <label for="rating">評分</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" required>
+        <button type="submit">提交抱怨</button>
+    </form>
+<?php else: ?>
+    <p>請先<a href="login.php">登入</a>以提交抱怨。</p>
+<?php endif; ?>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+-------------------------------------------------------------
+orders.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "線上點餐大網站";
+ob_start();
+?>
+
+<h2>訂單列表</h2>
+<div class="game-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM orders");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='order'>";
+            echo "<p>" . htmlspecialchars($row['order_details']) . "</p>";
+            echo "<p>日期: " . htmlspecialchars($row['order_date']) . "</p>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有訂單。</p>";
+    }
+    ?>
+</div>
+
+<?php if (isset($_SESSION['user_id'])): ?>
+    <h3>新增訂單</h3>
+    <form action="submit_order.php" method="POST" class="form-container">
+        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+        <label for="order_details">訂單內容</label>
+        <textarea id="order_details" name="order_details" required></textarea>
+        <button type="submit">提交訂單</button>
+    </form>
+<?php else: ?>
+    <p>請先<a href="login.php">登入</a>以提交訂單。</p>
+<?php endif; ?>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+-------------------------------------------------------------
+db.php:
+<?php
+$host = getenv('DB_HOST') ?: 'localhost'; // 資料庫主機
+$db = getenv('DB_NAME') ?: 'game_db'; // 資料庫名稱
+$user = getenv('DB_USER') ?: 'root'; // 使用者名稱
+$pass = getenv('DB_PASS') ?: ''; // 密碼
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    error_log("Connection failed: " . $e->getMessage());
+    echo "Connection failed. Please try again later.";
+}
+?>
+-------------------------------------------------------------
+games.php:
+<?php
+session_start();
+include 'db.php';
+
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$stmt = $pdo->prepare("SELECT * FROM games WHERE id = ?");
+$stmt->execute([$id]);
+$game = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$game) {
+    echo "Game not found.";
+    exit;
+}
+
+$images = json_decode($game['images'], true);
+$videos = json_decode($game['videos'], true);
+
+function resizeImage($file, $max_width, $max_height) {
+    list($width, $height, $type) = getimagesize($file);
+    $src = null;
+    switch ($type) {
+        case IMAGETYPE_JPEG:
+            $src = imagecreatefromjpeg($file);
+            break;
+        case IMAGETYPE_PNG:
+            $src = imagecreatefrompng($file);
+            break;
+        case IMAGETYPE_GIF:
+            $src = imagecreatefromgif($file);
+            break;
+        default:
+            return $file;
+    }
+
+    if ($width > $max_width || $height > $max_height) {
+        $ratio = min($max_width / $width, $max_height / $height);
+        $new_width = $width * $ratio;
+        $new_height = $height * $ratio;
+
+        $dst = imagecreatetruecolor($new_width, $new_height);
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+        $new_file = 'resized_' . basename($file);
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($dst, $new_file);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($dst, $new_file);
+                break;
+            case IMAGETYPE_GIF:
+                imagegif($dst, $new_file);
+                break;
+        }
+
+        imagedestroy($src);
+        imagedestroy($dst);
+
+        return $new_file;
+    }
+    return $file;
+}
+
+if (!empty($game['title_image'])) {
+    $game['title_image'] = resizeImage($game['title_image'], 1960, 1080);
+}
+
+// Fetch reviews
+$review_stmt = $pdo->prepare("SELECT * FROM review WHERE games_id = ?");
+$review_stmt->execute([$id]);
+$reviews = $review_stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title><?php echo htmlspecialchars($game['title']); ?></title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .container p {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="menu-icon" onclick="openNav()">☰ Menu</span>
+        <?php
+        echo "<h1 class='header-title'>" . htmlspecialchars($game['title']) . "</h1>";
+        ?>
+    </header>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="index.php">Home</a>
+    </div>
+
+    <main id="main" class="container">
+        <img src="<?php echo htmlspecialchars($game['title_image']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" style="max-width: 1920px; max-height: 1080px;">
+        <p><?php echo htmlspecialchars($game['description']); ?></p>
+        <p>評分: <?php echo htmlspecialchars($game['rating']); ?></p>
+
+        <?php if (!empty($images)): ?>
+            <h3>遊戲圖片</h3>
+            <?php foreach ($images as $image): ?>
+                <img src="<?php echo htmlspecialchars($image); ?>" alt="Game Image" style="max-width: 100%; height: auto;">
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if (!empty($videos)): ?>
+            <h3>遊戲影片</h3>
+            <?php foreach ($videos as $video): ?>
+                <iframe width="560" height="315" src="<?php echo htmlspecialchars($video); ?>" frameborder="0" allowfullscreen></iframe>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <h3>評論</h3>
+        <?php if (!empty($reviews)): ?>
+            <?php foreach ($reviews as $review): ?>
+                <div class="review">
+                    <p><?php echo htmlspecialchars($review['review_text']); ?></p>
+                    <p>評分: <?php echo htmlspecialchars($review['review_rating']); ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>目前沒有評論。</p>
+        <?php endif; ?>
+
+        <h3>新增評論</h3>
+        <form action="submit_review.php" method="POST" class="form-container">
+            <input type="hidden" name="games_id" value="<?php echo $id; ?>">
+            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+            <label for="review_text">評論內容</label>
+            <textarea id="review_text" name="review_text" required></textarea>
+            <label for="review_rating">評分</label>
+            <input type="number" id="review_rating" name="review_rating" min="1" max="10" required>
+            <button type="submit">提交評論</button>
+        </form>
+    </main>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+</html>
+-------------------------------------------------------------
+index.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "遊戲推薦網站";
+ob_start();
+?>
+
+<h2>遊戲:</h2>
+<?php if (isset($_SESSION['username'])): ?>
+    <p>歡迎回來，<?php echo htmlspecialchars($_SESSION['username']); ?>！</p>
+<?php endif; ?>
+<div class="game-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM games");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='game'>";
+            if (!empty($row['title_image'])) {
+                echo "<a href='games.php?id=" . $row['id'] . "'><img src='" . htmlspecialchars($row["title_image"]) . "' alt='title Image'></a>";
+            }
+            echo "<div class='game-title'>" . htmlspecialchars($row['title']) . "</div>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有遊戲。</p>";
+    }
+    ?>
+</div>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+-------------------------------------------------------------
+layout.php:
+<?php
+session_start(); // 啟動 Session
+?>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title><?php echo $page_title; ?></title>
+</head>
+<body>
+    <header>
+        <span class="menu-icon" onclick="openNav()">☰ Menu</span>
+        <h1><?php echo $page_title; ?></h1>
+        <?php if (isset($_SESSION['username'])): ?>
+            <div class="user-info">
+                歡迎，<?php echo htmlspecialchars($_SESSION['username']); ?>！
+            </div>
+        <?php endif; ?>
+    </header>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="index.php">首頁</a>
+        <a href="complaints.php">線上抱怨網站</a>
+        <a href="anime.php">動漫推薦網站</a>
+        <a href="orders.php">線上點餐大網站</a>
+        <a href="ocean_games.php">海洋遊戲推薦網站</a>
+        <?php if (isset($_SESSION['username'])): ?>
+            <a href="logout.php">登出</a>
+        <?php else: ?>
+            <a href="login.php">登入</a>
+            <a href="register.php">註冊</a>
+        <?php endif; ?>
+    </div>
+
+    <main id="main">
+        <?php echo $page_content; ?>
+    </main>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+</html>
+-------------------------------------------------------------
+login_process.php:
+<?php
+include 'db.php';
+
+$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+if (!$username || !$password) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+// 查詢用戶
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+$stmt->execute([$username]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$user || !password_verify($password, $user['password'])) {
+    echo "用戶名或密碼錯誤";
+    exit;
+}
+
+// 登入成功，設置 Session
+session_start();
+$_SESSION['user_id'] = $user['id'];
+$_SESSION['username'] = $user['username'];
+
+header("Location: index.php"); // 登入成功後重定向到首頁
+?>
+-------------------------------------------------------------
+login.php:
+<?php
+include 'db.php';
+
+$page_title = "登入";
+ob_start();
+?>
+
+<h2>登入</h2>
+<form action="login_process.php" method="POST" class="form-container">
+    <label for="username">用戶名</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">密碼</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">登入</button>
+</form>
+<p>還沒有帳號？<a href="register.php">註冊</a></p>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+-------------------------------------------------------------
+logout.php:
+<?php
+session_start();
+session_destroy(); // 銷毀 Session
+header("Location: index.php"); // 重定向到首頁
+?>
+-------------------------------------------------------------
+ocean_games.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "海洋遊戲推薦網站";
+ob_start();
+?>
+
+<h2>海洋遊戲列表</h2>
+<div class="game-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM ocean_games");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='ocean-game'>";
+            if (!empty($row['cover_image'])) {
+                echo "<img src='" . htmlspecialchars($row['cover_image']) . "' alt='" . htmlspecialchars($row['title']) . "'>";
+            }
+            echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+            echo "<p>評分: " . htmlspecialchars($row['rating']) . "</p>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有海洋遊戲。</p>";
+    }
+    ?>
+</div>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+-------------------------------------------------------------
+register_process.php:
+<?php
+include 'db.php';
+
+$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+if (!$username || !$email || !$password) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+// 檢查用戶名或電子郵件是否已存在
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
+$stmt->execute([$username, $email]);
+if ($stmt->rowCount() > 0) {
+    echo "用戶名或電子郵件已被使用";
+    exit;
+}
+
+// 加密密碼
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+// 插入新用戶
+$stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt->execute([$username, $email, $hashed_password]);
+
+header("Location: login.php"); // 註冊成功後重定向到登入頁面
+?>
+-------------------------------------------------------------
+register.php:
+<?php
+include 'db.php';
+
+$page_title = "註冊";
+ob_start();
+?>
+
+<h2>註冊</h2>
+<form action="register_process.php" method="POST" class="form-container">
+    <label for="username">用戶名</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="email">電子郵件</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">密碼</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">註冊</button>
+</form>
+<p>已經有帳號？<a href="login.php">登入</a></p>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+-------------------------------------------------------------
+submit_order.php:
+<?php
+session_start();
+include 'db.php';
+
+$user_id = $_SESSION['user_id']; // 從 Session 中獲取 user_id
+$order_details = filter_input(INPUT_POST, 'order_details', FILTER_SANITIZE_STRING);
+
+if (!$user_id || !$order_details) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+$order_date = date('Y-m-d H:i:s'); // 獲取當前時間
+
+$stmt = $pdo->prepare("INSERT INTO orders (user_id, order_details, order_date) VALUES (?, ?, ?)");
+$stmt->execute([$user_id, $order_details, $order_date]);
+
+header("Location: orders.php"); // 提交後重定向到訂單頁面
+?>
+-------------------------------------------------------------
+submit_review.php:
+<?php
+session_start();
+include 'db.php';
+
+$games_id = filter_input(INPUT_POST, 'games_id', FILTER_SANITIZE_NUMBER_INT);
+$user_id = $_SESSION['user_id']; // 從 Session 中獲取 user_id
+$review_text = filter_input(INPUT_POST, 'review_text', FILTER_SANITIZE_STRING);
+$review_rating = filter_input(INPUT_POST, 'review_rating', FILTER_SANITIZE_NUMBER_INT);
+
+if (!$games_id || !$user_id || !$review_text || !$review_rating) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+$stmt = $pdo->prepare("INSERT INTO review (games_id, user_id, review_text, review_rating) VALUES (?, ?, ?, ?)");
+$stmt->execute([$games_id, $user_id, $review_text, $review_rating]);
+
+header("Location: games.php?id=" . $games_id);
+?>
+-------------------------------------------------------------
+submit_complaint.php:
+<?php
+session_start();
+include 'db.php';
+
+$user_id = $_SESSION['user_id']; // 從 Session 中獲取 user_id
+$complaint_text = filter_input(INPUT_POST, 'complaint_text', FILTER_SANITIZE_STRING);
+$complaint_type = filter_input(INPUT_POST, 'complaint_type', FILTER_SANITIZE_STRING);
+$rating = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_NUMBER_INT);
+
+if (!$user_id || !$complaint_text || !$complaint_type || !$rating) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+$stmt = $pdo->prepare("INSERT INTO complaints (user_id, complaint_text, complaint_type, rating) VALUES (?, ?, ?, ?)");
+$stmt->execute([$user_id, $complaint_text, $complaint_type, $rating]);
+
+header("Location: complaints.php"); // 提交後重定向到抱怨頁面
+?>

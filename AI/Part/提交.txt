@@ -1,0 +1,63 @@
+submit_complaint.php:
+<?php
+session_start();
+include 'db.php';
+
+$user_id = $_SESSION['user_id']; // 從 Session 中獲取 user_id
+$complaint_text = filter_input(INPUT_POST, 'complaint_text', FILTER_SANITIZE_STRING);
+$complaint_type = filter_input(INPUT_POST, 'complaint_type', FILTER_SANITIZE_STRING);
+$rating = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_NUMBER_INT);
+
+if (!$user_id || !$complaint_text || !$complaint_type || !$rating) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+$stmt = $pdo->prepare("INSERT INTO complaints (user_id, complaint_text, complaint_type, rating) VALUES (?, ?, ?, ?)");
+$stmt->execute([$user_id, $complaint_text, $complaint_type, $rating]);
+
+header("Location: complaints.php"); // 提交後重定向到抱怨頁面
+?>
+===============================================================
+submit_order.php:
+<?php
+session_start();
+include 'db.php';
+
+$user_id = $_SESSION['user_id']; // 從 Session 中獲取 user_id
+$order_details = filter_input(INPUT_POST, 'order_details', FILTER_SANITIZE_STRING);
+
+if (!$user_id || !$order_details) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+$order_date = date('Y-m-d H:i:s'); // 獲取當前時間
+
+$stmt = $pdo->prepare("INSERT INTO orders (user_id, order_details, order_date) VALUES (?, ?, ?)");
+$stmt->execute([$user_id, $order_details, $order_date]);
+
+header("Location: orders.php"); // 提交後重定向到訂單頁面
+?>
+===============================================================
+submit_review.php:
+<?php
+session_start();
+include 'db.php';
+
+$games_id = filter_input(INPUT_POST, 'games_id', FILTER_SANITIZE_NUMBER_INT);
+$user_id = $_SESSION['user_id']; // 從 Session 中獲取 user_id
+$review_text = filter_input(INPUT_POST, 'review_text', FILTER_SANITIZE_STRING);
+$review_rating = filter_input(INPUT_POST, 'review_rating', FILTER_SANITIZE_NUMBER_INT);
+
+if (!$games_id || !$user_id || !$review_text || !$review_rating) {
+    echo "請填寫所有必填欄位";
+    exit;
+}
+
+$stmt = $pdo->prepare("INSERT INTO review (games_id, user_id, review_text, review_rating) VALUES (?, ?, ?, ?)");
+$stmt->execute([$games_id, $user_id, $review_text, $review_rating]);
+
+header("Location: games.php?id=" . $games_id);
+?>
+===============================================================

@@ -1,0 +1,381 @@
+index.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "遊戲推薦網站";
+ob_start();
+?>
+
+<h2>遊戲:</h2>
+<?php if (isset($_SESSION['username'])): ?>
+    <p>歡迎回來，<?php echo htmlspecialchars($_SESSION['username']); ?>！</p>
+<?php endif; ?>
+<div class="game-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM games");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='game'>";
+            if (!empty($row['title_image'])) {
+                echo "<a href='games.php?id=" . $row['id'] . "'><img src='" . htmlspecialchars($row["title_image"]) . "' alt='title Image'></a>";
+            }
+            echo "<div class='game-title'>" . htmlspecialchars($row['title']) . "</div>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有遊戲。</p>";
+    }
+    ?>
+</div>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+===============================================================
+anime.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "動漫推薦網站";
+ob_start(); // 開始緩衝輸出
+?>
+
+<h2>動漫列表</h2>
+<div class="game-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM anime");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='anime'>";
+            if (!empty($row['cover_image'])) {
+                echo "<img src='" . htmlspecialchars($row['cover_image']) . "' alt='" . htmlspecialchars($row['title']) . "'>";
+            }
+            echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+            echo "<p>評分: " . htmlspecialchars($row['rating']) . "</p>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有動漫。</p>";
+    }
+    ?>
+</div>
+
+<?php
+$page_content = ob_get_clean(); // 獲取緩衝內容並清空緩衝
+include 'layout.php'; // 引入 Layout
+?>
+===============================================================
+complaints.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "線上抱怨網站";
+ob_start();
+?>
+
+<h2>抱怨列表</h2>
+<div class="complaint-container">
+    <?php
+    // 查詢抱怨並關聯用戶名稱
+    $stmt = $pdo->query("
+        SELECT complaints.*, users.username 
+        FROM complaints 
+        JOIN users ON complaints.user_id = users.id
+    ");
+    $complaints = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($complaints) > 0) {
+        foreach ($complaints as $complaint):
+    ?>
+        <div class="complaint">
+            <p><strong>用戶:</strong> <?php echo htmlspecialchars($complaint['username']); ?></p>
+            <p><strong>抱怨內容:</strong> <?php echo htmlspecialchars($complaint['complaint_text']); ?></p>
+            <p><strong>類型:</strong> <?php echo htmlspecialchars($complaint['complaint_type']); ?></p>
+            <p><strong>評分:</strong> <?php echo htmlspecialchars($complaint['rating']); ?></p>
+        </div>
+    <?php
+        endforeach;
+    } else {
+        echo "<p>目前沒有抱怨。</p>";
+    }
+    ?>
+</div>
+
+<?php if (isset($_SESSION['user_id'])): ?>
+    <h3>新增抱怨</h3>
+    <form action="submit_complaint.php" method="POST" class="form-container">
+        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+        <label for="complaint_text">抱怨內容</label>
+        <textarea id="complaint_text" name="complaint_text" required></textarea>
+        <label for="complaint_type">抱怨類型</label>
+        <input type="text" id="complaint_type" name="complaint_type" required>
+        <label for="rating">評分</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" required>
+        <button type="submit">提交抱怨</button>
+    </form>
+<?php else: ?>
+    <p>請先<a href="login.php">登入</a>以提交抱怨。</p>
+<?php endif; ?>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+===============================================================
+games.php:
+<?php
+session_start();
+include 'db.php';
+
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$stmt = $pdo->prepare("SELECT * FROM games WHERE id = ?");
+$stmt->execute([$id]);
+$game = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$game) {
+    echo "Game not found.";
+    exit;
+}
+
+$images = json_decode($game['images'], true);
+$videos = json_decode($game['videos'], true);
+
+function resizeImage($file, $max_width, $max_height) {
+    list($width, $height, $type) = getimagesize($file);
+    $src = null;
+    switch ($type) {
+        case IMAGETYPE_JPEG:
+            $src = imagecreatefromjpeg($file);
+            break;
+        case IMAGETYPE_PNG:
+            $src = imagecreatefrompng($file);
+            break;
+        case IMAGETYPE_GIF:
+            $src = imagecreatefromgif($file);
+            break;
+        default:
+            return $file;
+    }
+
+    if ($width > $max_width || $height > $max_height) {
+        $ratio = min($max_width / $width, $max_height / $height);
+        $new_width = $width * $ratio;
+        $new_height = $height * $ratio;
+
+        $dst = imagecreatetruecolor($new_width, $new_height);
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+        $new_file = 'resized_' . basename($file);
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($dst, $new_file);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($dst, $new_file);
+                break;
+            case IMAGETYPE_GIF:
+                imagegif($dst, $new_file);
+                break;
+        }
+
+        imagedestroy($src);
+        imagedestroy($dst);
+
+        return $new_file;
+    }
+    return $file;
+}
+
+if (!empty($game['title_image'])) {
+    $game['title_image'] = resizeImage($game['title_image'], 1960, 1080);
+}
+
+// Fetch reviews
+$review_stmt = $pdo->prepare("SELECT * FROM review WHERE games_id = ?");
+$review_stmt->execute([$id]);
+$reviews = $review_stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title><?php echo htmlspecialchars($game['title']); ?></title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .container p {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="menu-icon" onclick="openNav()">☰ Menu</span>
+        <?php
+        echo "<h1 class='header-title'>" . htmlspecialchars($game['title']) . "</h1>";
+        ?>
+    </header>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="index.php">Home</a>
+    </div>
+
+    <main id="main" class="container">
+        <img src="<?php echo htmlspecialchars($game['title_image']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" style="max-width: 1920px; max-height: 1080px;">
+        <p><?php echo htmlspecialchars($game['description']); ?></p>
+        <p>評分: <?php echo htmlspecialchars($game['rating']); ?></p>
+
+        <?php if (!empty($images)): ?>
+            <h3>遊戲圖片</h3>
+            <?php foreach ($images as $image): ?>
+                <img src="<?php echo htmlspecialchars($image); ?>" alt="Game Image" style="max-width: 100%; height: auto;">
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if (!empty($videos)): ?>
+            <h3>遊戲影片</h3>
+            <?php foreach ($videos as $video): ?>
+                <iframe width="560" height="315" src="<?php echo htmlspecialchars($video); ?>" frameborder="0" allowfullscreen></iframe>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <h3>評論</h3>
+        <?php if (!empty($reviews)): ?>
+            <?php foreach ($reviews as $review): ?>
+                <div class="review">
+                    <p><?php echo htmlspecialchars($review['review_text']); ?></p>
+                    <p>評分: <?php echo htmlspecialchars($review['review_rating']); ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>目前沒有評論。</p>
+        <?php endif; ?>
+
+        <h3>新增評論</h3>
+        <form action="submit_review.php" method="POST" class="form-container">
+            <input type="hidden" name="games_id" value="<?php echo $id; ?>">
+            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+            <label for="review_text">評論內容</label>
+            <textarea id="review_text" name="review_text" required></textarea>
+            <label for="review_rating">評分</label>
+            <input type="number" id="review_rating" name="review_rating" min="1" max="10" required>
+            <button type="submit">提交評論</button>
+        </form>
+    </main>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+</html>
+===============================================================
+ocean_games.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "海洋遊戲推薦網站";
+ob_start();
+?>
+
+<h2>海洋遊戲列表</h2>
+<div class="game-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM ocean_games");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='ocean-game'>";
+            if (!empty($row['cover_image'])) {
+                echo "<img src='" . htmlspecialchars($row['cover_image']) . "' alt='" . htmlspecialchars($row['title']) . "'>";
+            }
+            echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+            echo "<p>評分: " . htmlspecialchars($row['rating']) . "</p>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有海洋遊戲。</p>";
+    }
+    ?>
+</div>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>
+===============================================================
+orders.php:
+<?php
+session_start();
+include 'db.php';
+
+$page_title = "線上點餐大網站";
+ob_start();
+?>
+
+<h2>菜單</h2>
+<div class="menu-container">
+    <?php
+    $stmt = $pdo->query("SELECT * FROM menu_items");
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='menu-item'>";
+            echo "<img src='" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
+            echo "<h3>" . htmlspecialchars($row['name']) . "</h3>";
+            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+            echo "<p>價格: $" . htmlspecialchars($row['price']) . "</p>";
+            if (isset($_SESSION['user_id'])) {
+                echo "<form action='add_to_cart.php' method='POST' class='add-to-cart-form'>";
+                echo "<input type='hidden' name='menu_item_id' value='" . $row['id'] . "'>";
+                echo "<label for='quantity'>數量:</label>";
+                echo "<input type='number' id='quantity' name='quantity' value='1' min='1'>";
+                echo "<button type='submit'>加入購物車</button>";
+                echo "</form>";
+            }
+            echo "</div>";
+        }
+    } else {
+        echo "<p>目前沒有餐點。</p>";
+    }
+    ?>
+</div>
+
+<!-- 浮動購物車圖示 -->
+<div id="cart-icon" onclick="toggleCart()">🛒</div>
+
+<!-- 購物車彈出視窗 -->
+<div id="cart-popup" class="cart-popup">
+    <h3>購物車</h3>
+    <div id="cart-content">
+        <!-- 購物車內容會動態載入 -->
+    </div>
+    <button onclick="checkout()">結帳</button>
+</div>
+
+<?php if (!isset($_SESSION['user_id'])): ?>
+    <p>請先<a href="login.php">登入</a>以進行點餐。</p>
+<?php endif; ?>
+
+<?php
+$page_content = ob_get_clean();
+include 'layout.php';
+?>

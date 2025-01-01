@@ -1,0 +1,200 @@
+css/style.css:
+body {
+    background-color: #121212; /* 更深的黑色 */
+    color: #e0e0e0; /* 更柔和的白色 */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    margin-top: 20px; /* 讓標題不貼住最上方，留出空間 */
+    position: relative;
+}
+
+.main-title img {
+    max-width: 500px; /* 設定最大寬度 */
+    height: auto;
+    margin-top: 40px; /* 讓標題不貼住最上方，留出空間 */
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #e0e0e0;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #333; /* 深色背景 */
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+/* 共用卡片樣式 */
+.game, .complaint, .anime, .order, .ocean-game {
+    width: calc(16.66% - 10px); /* 每行六個卡片，留出邊距 */
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #1e1e1e; /* 深色背景 */
+    border: 1px solid #333; /* 深色邊框 */
+    border-radius: 10px; /* 圓角 */
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 陰影效果 */
+}
+
+.game img, .anime img, .ocean-game img {
+    width: 100%; /* 自動伸縮大小 */
+    height: auto;
+    max-height: 300px; /* 固定最大高度 */
+    object-fit: cover; /* 保持圖片比例 */
+}
+
+.game-title, .anime-title, .ocean-game-title {
+    margin-top: 5px;
+}
+
+/* 共用段落樣式 */
+.complaint p, .anime p, .order p, .ocean-game p {
+    margin: 5px 0;
+}
+
+/* 表單容器樣式 */
+.form-container {
+    background-color: #1e1e1e; /* 深色背景 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 陰影效果 */
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%; /* 確保寬度不超過父容器 */
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-container input,
+.form-container textarea {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+.form-container textarea {
+    resize: none; /* 禁止調整大小 */
+}
+
+.form-container button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+.form-container button:focus,
+.sidenav a:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+/* 遊戲容器樣式 */
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.user-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+/* 其他共用樣式 */
+main {
+    padding: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* 固定評論、抱怨、訂單等內容區域的大小 */
+.review, .complaint, .order {
+    background-color: #1e1e1e; /* 深色背景 */
+    border: 1px solid #333; /* 深色邊框 */
+    border-radius: 10px; /* 圓角 */
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 陰影效果 */
+    width: 100%; /* 固定寬度 */
+    max-width: 600px; /* 最大寬度 */
+    margin: 0 auto; /* 置中 */
+}
+
+/* 固定 iframe 的大小 */
+iframe {
+    width: 560px; /* 固定寬度 */
+    height: 315px; /* 固定高度 */
+    border: none; /* 移除邊框 */
+}
