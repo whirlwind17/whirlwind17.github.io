@@ -1,5 +1,5 @@
 # 使用官方的 PHP 映像
-FROM php:8.1-apache
+FROM php:7.4-apache
 
 # 將專案文件複製到容器中
 COPY . /var/www/html
